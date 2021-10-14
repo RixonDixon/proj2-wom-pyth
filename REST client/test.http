@@ -1,0 +1,31 @@
+@remoteUrl = https://secret-shelf-13108.herokuapp.com
+
+@localUrl = http://127.0.0.1:5000
+
+
+GET  {{remoteUrl}}/users
+
+
+###
+POST   {{remoteUrl}}/notes
+
+###
+GET  {{localUrl}}/orders
+
+###
+POST  {{localUrl}}/orders
+Content-Type: application/json
+
+{"service": "stadning","stugID": "61642873e2d92ae2c0ff5e17", "Date": "2022-01-02"}
+
+###
+PUT {{localUrl}}/orders
+Content-Type: application/json
+
+
+###
+GET  {{localUrl}}/cabins
+
+
+###
+GET  {{localUrl}}/services
