@@ -23,7 +23,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
-class Service(db.Model):
+class Services(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     service = db.Column(db.String(80), unique=True, nullable=False)
     updated_at = db.Column(db.DateTime(), default=db.func.now(), onupdate=db.func.now())
@@ -55,18 +55,29 @@ except exception as e :
 
 
 
-@app.route("/services")
+@app.route("/services", methods = ['GET','POST'])
 def service():
     ret= []
 
     if request.method == 'GET':
-        for u in Service.query.all():
-            ret.append({'service': u.service, 'updated at': u.updated_at})
+        for u in Services.query.all():
+            ret.append({'service': u.service, 'updated at': u.updated_at, 'id': u.id})
+
+    if request.method == 'POST':
+        body = request.get_json()
+
+        new_service = Services(service = body['service'])
+
+        db.session.add(new_service)
+        db.session.commit()
+        ret = [ "Service succesful" ]
 
     return jsonify(ret)
 
 
-@app.route("/orders", methods = ['GET','POST', 'PUT'])
+
+
+@app.route("/orders", methods = ['GET','POST'])
 def order():
     ret= []
     if request.method == 'GET':
@@ -89,16 +100,16 @@ def order():
 
         print(resp)
         new = []
-        new_service = Order(service=body['service'], stugID = body['stugID'], date=body['Date'])
+        new_order = Order(service=body['service'], stugID = body['stugID'], date=body['Date'])
         
         
-        new.append(Service.query.filter_by(service = body['service']))
+        new.append(Services.query.filter_by(service = body['service']))
         print(resp)
         print(new)
        
         if len(new)>0 and body['stugID'] in resp:
             
-            db.session.add(new_service)
+            db.session.add(new_order)
             db.session.commit()
             ret = [ "service reserved" ]
 
@@ -108,40 +119,61 @@ def order():
 
         
 
+    return jsonify(ret)
+
+@app.route("/services/<id>", methods = ['PUT', 'DELETE'])
+def service_filter(id):
+    ret = []
+    if request.method == 'PUT':
+        body = request.get_json()
+        serv_update = Services.query.filter_by(id=id).first_or_404()
+        serv_update.service = body['service']
+        db.session.commit()
+        ret =[{ 'service': serv_update.service}]
+
+
+
+    if request.method == 'DELETE':
+        serv_delete = Services.query.filter_by(id=id).first_or_404()
+        db.session.delete(serv_delete)
+        db.session.commit()
+        ret = ['deleted service']
+
+    return jsonify(ret)
+
+@app.route("/orders/<id>", methods = ['PUT', 'DELETE'])
+def order_filter(id):
+    ret = []
     if request.method == 'PUT':
         body = request.get_json()
         url = 'https://limitless-atoll-37666.herokuapp.com/cabins/owned' #os.environ.get('CABINS_URL')
         header = { 'Authorization': 'Bearer {}'.format(notes_token) }
         response = requests.get(url, headers=header)
-        resp = []
-        x=0
-        for x in range(len(response.json())):
-                       
-            resp.append(response.json()[x]['_id'])
-            x+1
-
-        print(resp)
+        
         new = []
-        new_service = Order(service=body['service'], stugID = body['stugID'], date=body['Date'])
-        
-        
-        new.append(Service.query.filter_by(service = body['service']))
-        print(resp)
-        print(new)
-       
-        if len(new)>0 and body['stugID'] in resp:
-            
-            db.session.add(new_service)
+
+        new.append(Services.query.filter_by(service = body['service']))
+
+        if len(new)>0:
+
+            order_update = Order.query.filter_by(id=id).first_or_404()
+            order_update.service = body['service'] 
+            order_update.date = body['date']
+
             db.session.commit()
-            ret = [ "service reserved" ]
 
-        else:
-                ret = ["is inga fösök du din lilla cunthora"]
-            
+        ret =[{ 'service': order_update.service, 'date': order_update.date}]
 
 
+
+    if request.method == 'DELETE':
+        order_delete = Order.query.filter_by(id=id).first_or_404()
+        db.session.delete(order_delete)
+        db.session.commit()
+        ret = ['Order deleted.']
 
     return jsonify(ret)
+
 
 
 @app.route("/cabins")

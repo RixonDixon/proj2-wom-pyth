@@ -5,9 +5,9 @@
 
 GET  {{remoteUrl}}/users
 
-
 ###
-POST   {{remoteUrl}}/notes
+GET  {{localUrl}}/cabins
+
 
 ###
 GET  {{localUrl}}/orders
@@ -19,13 +19,34 @@ Content-Type: application/json
 {"service": "stadning","stugID": "61642873e2d92ae2c0ff5e17", "Date": "2022-01-02"}
 
 ###
-PUT {{localUrl}}/orders
+PUT {{localUrl}}/orders/5
 Content-Type: application/json
+
+{"service": "städning", "date": "2020-01-01"}
 
 
 ###
-GET  {{localUrl}}/cabins
-
+DELETE {{localUrl}}/orders/30
+Content-Type: application/json
 
 ###
 GET  {{localUrl}}/services
+
+###
+POST  {{localUrl}}/services
+Content-Type: application/json
+
+{"service": "bastu tvätt"}
+
+###
+PUT {{localUrl}}/services/4
+Content-Type: application/json
+
+{"service": "Bastutvätt"}
+
+###
+DELETE {{localUrl}}/services/6
+Content-Type: application/json
+
+
+
