@@ -2,6 +2,7 @@
 
 @localUrl = http://127.0.0.1:5000
 
+@baseUrl = https://limitless-atoll-37666.herokuapp.com
 
 GET  {{remoteUrl}}/users
 
@@ -16,7 +17,7 @@ GET  {{remoteUrl}}/orders
 POST  {{remoteUrl}}/orders
 Content-Type: application/json
 
-{"service": "sotning","stugID": "61642873e2d92ae2c0ff5e17", "Date": "2022-01-02"}
+{"service": "Städning","stugID": "61642c8556197124fffb29d3", "Date": "2022-01-06"}
 
 ###
 PUT {{remoteUrl}}/orders/5
@@ -26,7 +27,7 @@ Content-Type: application/json
 
 
 ###
-DELETE {{remoteUrl}}/orders/7
+DELETE {{remoteUrl}}/orders/4
 Content-Type: application/json
 
 ###
@@ -36,17 +37,18 @@ GET  {{remoteUrl}}/services
 POST  {{remoteUrl}}/services
 Content-Type: application/json
 
-{"service": "bastu tvätt"}
+{"service": "stugmålning"}
 
 ###
-PUT {{remoteUrl}}/services/7
+PUT {{remoteUrl}}/services/9
 Content-Type: application/json
 
-{"service": "Bastutvätt"}
+{"service": "Måla stuga"}
 
 ###
-DELETE {{remoteUrl}}/services/6
+DELETE {{remoteUrl}}/services/8
 Content-Type: application/json
+
 
 
 
