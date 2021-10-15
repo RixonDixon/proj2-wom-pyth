@@ -6,46 +6,46 @@
 GET  {{remoteUrl}}/users
 
 ###
-GET  {{localUrl}}/cabins
+GET  {{remoteUrl}}/cabins
 
 
 ###
-GET  {{localUrl}}/orders
+GET  {{remoteUrl}}/orders
 
 ###
-POST  {{localUrl}}/orders
+POST  {{remoteUrl}}/orders
 Content-Type: application/json
 
-{"service": "stadning","stugID": "61642873e2d92ae2c0ff5e17", "Date": "2022-01-02"}
+{"service": "sotning","stugID": "61642873e2d92ae2c0ff5e17", "Date": "2022-01-02"}
 
 ###
-PUT {{localUrl}}/orders/5
+PUT {{remoteUrl}}/orders/5
 Content-Type: application/json
 
-{"service": "städning", "date": "2020-01-01"}
+{"service": "sotning", "date": "2020-01-02"}
 
 
 ###
-DELETE {{localUrl}}/orders/30
+DELETE {{remoteUrl}}/orders/7
 Content-Type: application/json
 
 ###
-GET  {{localUrl}}/services
+GET  {{remoteUrl}}/services
 
 ###
-POST  {{localUrl}}/services
+POST  {{remoteUrl}}/services
 Content-Type: application/json
 
 {"service": "bastu tvätt"}
 
 ###
-PUT {{localUrl}}/services/4
+PUT {{remoteUrl}}/services/7
 Content-Type: application/json
 
 {"service": "Bastutvätt"}
 
 ###
-DELETE {{localUrl}}/services/6
+DELETE {{remoteUrl}}/services/6
 Content-Type: application/json
 
 

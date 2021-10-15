@@ -1,5 +1,6 @@
 @baseUrl = https://limitless-atoll-37666.herokuapp.com
 
+@JWTtoken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MTY0MjQ3ZDRkY2IyY2U4ODRmNTZiOWYiLCJlbWFpbCI6Ikphbm5lQGRvZS5jb20iLCJpYXQiOjE2MzQyOTYzNTAsImV4cCI6MTYzNDM4Mjc1MH0.hqWI0L3Xy_7HZ7hQAfEGKeAIQrn0mVgW1LRNcR9W54I
 ###
 GET {{baseUrl}}
 
@@ -16,4 +17,6 @@ Content-Type: application/json
 
 
 ###
-GET {{baseUrl}}/cabins
+GET {{baseUrl}}/cabins/owned
+Content-Type: application/json
+Authorization: Bearer {{JWTtoken}}
