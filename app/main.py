@@ -114,7 +114,7 @@ def order():
             ret = [ "service reserved" ]
 
         else:
-                ret = ["is inga fösök du din lilla cunthora"]
+                ret = ["is inga fösök du din lilla klurnisse"]
             
 
         
